@@ -1,0 +1,3 @@
+[submodule "server/ucan_cpp_lib/uCANCPPLib"]
+	path = server/ucan_cpp_lib/uCANCPPLib
+	url = https://github.com/CanEthernetConverter/uCANCPPLib.git

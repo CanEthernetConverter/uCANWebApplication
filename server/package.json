@@ -1,0 +1,28 @@
+{
+  "name": "ucantoolswebappserwer",
+  "version": "1.0.0",
+  "description": "Webserwer for uCANTools application ",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "connect": "^3.4.1",
+    "express": "^4.15.2",
+    "forever-monitor": "^1.7.1",
+    "fs": "0.0.1-security",
+    "jsonfile": "^2.4.0",
+    "moment": "^2.18.1",
+    "mqtt": "^2.13.0",
+    "net": "^1.0.2",
+    "os": "^0.1.1",
+    "serve-static": "^1.11.1",
+    "socketcan": "^2.2.0",
+    "ws": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "LJ",
+  "license": "ISC"
+}

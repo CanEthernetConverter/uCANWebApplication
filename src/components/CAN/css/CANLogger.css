@@ -1,0 +1,11 @@
+.statusinfo {
+  position: fixed;
+  display: flex;
+  padding: 10px 50px;
+  top: 30%;
+  right: 10%;
+  background-color: rgb(255, 255, 255, 0);
+  color: rgba(240, 95, 64, 0.5);
+  border-style: none;
+  z-index: 65000;
+}

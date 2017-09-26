@@ -1,0 +1,82 @@
+.transmitsidebar {
+  position: fixed;
+  display: flex;
+  padding: 10px 5px;
+  top: 2px;
+  right: 10px;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.8);
+  border-radius: 0px 0px 2px 2px;
+  border-style: solid;
+  border-width: 1px 1px 1px;
+  border-color: rgba(0, 0, 0, 0.0980392);
+  z-index: 65000;
+}
+
+.minimize{
+  /*width: 125px;*/
+}
+.glyphicon-rxstop {
+    font-size: 1.8em;
+    border: none;
+    opacity: 0.8;
+    color:  rgba(250,0,0,1);
+    background-color:  rgba(240, 95, 64, 0.0);
+}
+
+.glyphicon-rxstart {
+    font-size: 1.8em;
+    border: none;
+    opacity: 0.8;
+    color:  rgba(0,240,0,1);
+    background-color:  rgba(240, 95, 64, 0.0);
+}
+
+.glyphicon-transmit {
+    font-size: 1.8em;
+    border: none;
+    opacity: 0.45;
+    background-color:  rgba(240, 95, 64, 0.0);
+}
+.btn-disabled{
+  color : rgba(0, 0, 0, 0.4);
+}
+
+.btn-disabled:hover{
+  color : rgba(0, 0, 0, 0.4);
+}
+
+.invalid{
+  color: #F05F40;
+}
+
+.glyphicon-transmit:hover {
+  opacity: 1;
+}
+
+.glyphicon:focus{
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline:none;
+}
+
+.toolbar{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.blink {
+  animation: blink-animation 1s steps(2, start) infinite;
+  -webkit-animation: blink-animation 1s steps(2, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    color:  rgba(0,240,0,0.1);
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    color:  rgba(0,240,0,0.1);
+  }
+}

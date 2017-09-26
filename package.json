@@ -1,0 +1,37 @@
+{
+  "name": "ucan_tools_web_app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "fixed-data-table": "^0.6.4",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.6.1",
+    "react-jsonschema-form": "^1.0.0",
+    "react-masonry-component": "^5.0.7",
+    "react-router-bootstrap": "^0.24.4",
+    "react-virtualized": "^9.8.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.1.0",
+    "react-scripts": "1.0.7"
+  },
+  "proxy": {
+    "/config.json": {
+      "target": "http://localhost:8080"
+    }
+  },
+  "scripts": {
+    "copy": "rm -r server/static && cp -r build/* server/",
+    "start": "react-scripts start",
+    "build": "react-scripts build && npm run copy",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

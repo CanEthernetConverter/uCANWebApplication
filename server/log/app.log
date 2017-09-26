@@ -1,0 +1,15 @@
+/root/uCANWebApplication/server/node_modules/socketcan/socketcan.js:34
+exports.createRawChannel = function(channel, timestamps) { return new can.RawChannel(channel, timestamps); }
+                                                                  ^
+
+Error: Error while creating channel
+    at Error (native)
+    at Object.exports.createRawChannel (/root/uCANWebApplication/server/node_modules/socketcan/socketcan.js:34:67)
+    at Object.<anonymous> (/root/uCANWebApplication/server/socket_can.js:6:19)
+    at Module._compile (module.js:570:32)
+    at Object.Module._extensions..js (module.js:579:10)
+    at Module.load (module.js:487:32)
+    at tryModuleLoad (module.js:446:12)
+    at Function.Module._load (module.js:438:3)
+    at Module.require (module.js:497:17)
+    at require (internal/module.js:20:19)
