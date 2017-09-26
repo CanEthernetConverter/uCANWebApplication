@@ -15,8 +15,8 @@ export default class CANFrameBuffer {
   static SetReceptionCallback = function () { }; // place it in array you lazy developer
   static SetReceptionCallback2 = function () { };
 
-  //static socket = new WebSocket(`ws://${window.location.host}`);
-  static socket = new WebSocket(`ws://localhost:8080`);
+  static socket = new WebSocket(`ws://${window.location.host}`);
+  // static socket = new WebSocket(`ws://localhost:8080`);
   
   static SetReception(flag) {
     CANFrameBuffer.isReciving = flag;
