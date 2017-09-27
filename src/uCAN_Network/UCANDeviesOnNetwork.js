@@ -21,23 +21,26 @@ export default class UCANDevicesOnNetwork {
   }
   static data = [];
   static update_flag = false;
+  static IsDataValid(json_element)
+  {
+    if (typeof(json_element.id) == 'undefined') return false;
+    return true;
+  }
   static UpdateRecord(json_element)
   {
-    UCANDevicesOnNetwork.update_flag = false;
-    UCANDevicesOnNetwork.data.forEach(function(data_element, data_index) {
-      
-      console.log("----");
-      console.log(json_element);
-      console.log("----");
-      
-      if (json_element.id.whole == data_element.id.whole)
-      {
-          UCANDevicesOnNetwork.update_flag = true;
-          UCANDevicesOnNetwork.data[data_index] = json_element;// update data_element
-      }
-    }, this);
-    if (UCANDevicesOnNetwork.update_flag == false)
-      UCANDevicesOnNetwork.data.push(json_element);
+    if (UCANDevicesOnNetwork.IsDataValid(json_element)) {
+      UCANDevicesOnNetwork.update_flag = false;
+      UCANDevicesOnNetwork.data.forEach(function(data_element, data_index) {
+        if (json_element.id.whole == data_element.id.whole)
+        {
+            UCANDevicesOnNetwork.update_flag = true;
+            UCANDevicesOnNetwork.data[data_index] = json_element;// update data_element
+            
+        }
+      }, this);
+      if (UCANDevicesOnNetwork.update_flag == false)
+        UCANDevicesOnNetwork.data.push(json_element);
+    }
   }
   static UpdateData(json_data){
     JSON.parse(json_data).forEach(function(json_element) {

@@ -93,11 +93,17 @@ export default class CANFrameBuffer {
 
     CANFrameBuffer.socket.onmessage = function (frame) {
       if (CANFrameBuffer.RawCANData) {
-        JSON.parse(frame.data).map((f) => {
+        try {
+           JSON.parse(frame.data).map((f) => {
           CANFrameBuffer.AddCanFrame(CANFrame.fromSocketCANData(f));
         });
+        } catch (exp)
+        {
+          console.log("Invalid RawCan input data");  
+        }
+       
       } else {
-        console.log(frame.data);
+        
         UCANDevicesOnNetwork.UpdateData(frame.data);
         CANFrameBuffer.UCANDevicesOnNetworkCallback();
         

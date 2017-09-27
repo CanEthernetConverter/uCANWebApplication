@@ -21,9 +21,9 @@ export default class ItemBoard extends React.Component {
     };
   }
 
+  
   onCANFrameRx() {
-    // console.log("callback !!");
-    this.forceUpdate();
+      this.forceUpdate();
   }
 
   createNew(e) {
@@ -48,13 +48,23 @@ export default class ItemBoard extends React.Component {
   }
 
 
+  renderValidItem (item)
+  {
+    if (typeof(item.id) == 'undefined') { return false;}
+    if (typeof(item.id.id) == 'undefined') { return false;}
+    if (typeof(item.id.device_type) == 'undefined') { return false;}
+    // nie wiem czemu z key-em id.whole nie odswierza sie ... szkoda slow...
+    {return <UCANItem key={item.timestamp.toString()} value={item}></UCANItem>;}
+  }
 
   render() {
     const uCANList = this.state.UCANDevicesOnNetwork.map(item => (
       <div>
-        <UCANItem item={item}></UCANItem>
+        {this.renderValidItem(item)}
       </div>
     ))
+
+    
 
     return <div>
       <Masonry
@@ -62,7 +72,7 @@ export default class ItemBoard extends React.Component {
         elementType={'div'}
         options={masonryOptions}
       >
-              {uCANList}
+              {this.state.UCANDevicesOnNetwork.length > 0 ? uCANList : <h2 className="statusinfo col-xs-9"> No uCAN devices found in network. </h2>}
       </Masonry>
     </div>
   }

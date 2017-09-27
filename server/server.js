@@ -33,11 +33,13 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
         switch (message) {
             case 'CANApplication':
-//                console.log('CANApplication request ');
+                if (sendRawFrames == false)
+                    console.log('CANApplication request ');
                 sendRawFrames = true;
                 break;
             case 'uCANItemBoard':
-//              console.log('uCANItemBoard request ');
+                if (sendRawFrames == true)
+                    console.log('uCANItemBoard request ');
                 sendRawFrames = false;
                 break;
             default:// handling ucan_scan
@@ -68,12 +70,13 @@ var ucan_scan_network = require('child_process').execFile('ucan_scan_network', [
     'vcan0', '10']); 
 
 ucan_scan_network.stdout.on('data', function(ucan_stdout) {
+    // console.log(ucan_stdout);
     ucan_stdout.split("]").forEach(function(element) {
         if (element.length > 2)
         {
             element += "]";      
-            console.log("-- ucan_scan_network -- ")  
-            console.log(element);
+            // console.log("-- ucan_scan_network -- ")  
+            // console.log(element);
             mqtt.mqtt_send_status_frame(element);
             if ((ws_connection != null) && (sendRawFrames == false)) 
             {                
