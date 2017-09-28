@@ -22,8 +22,15 @@ export default class UCANItem extends React.Component {
       uCANTimestamp: this.data.timestamp,
       uCANStatus: UCANDevicesOnNetwork.calculate_status(this.data.id.whole)
     };
+
+    this.allertStyle = {
+      color: 'red'
+    };
+
+    setTimeout(() => this.setState({ windowsStatus: "CONNECTION LOST"}), 5000);
   }
  
+  
 
   getTimeString(unix_timestamp)
   {
@@ -34,10 +41,7 @@ export default class UCANItem extends React.Component {
      return  (hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2));
   }
 
-  toogleStatus(status) {
-    if (this.state.windowsStatus !== status) { this.setState({ windowsStatus: status }); } else { this.setState({ windowsStatus: false }); }
-  }
-
+  
   render(){
     return (
       <div className="container itemframeback">
@@ -45,15 +49,15 @@ export default class UCANItem extends React.Component {
           <div className="col-xs-6">
            {this.state.uCANType}  id:{this.state.uCANId}
           </div>
-          <div className="col-xs-2">
-
-          </div>
+          
           <div className="col-xs-4">
             {this.getTimeString(this.state.uCANTimestamp)}
           </div>
+          <div className="col-xs-2">
+              {this.state.windowsStatus === 'CONNECTION LOST' ? <i style={this.allertStyle} className="pull-right glyphicon glyphicon-download-alt glyphicon-alert " /> : null  }
+          </div>
         </div>
         <div className="row">
-        {this.state.windowsStatus === 'TRANSMIT' ? <UCANItemTransmit /> : null }
         <table className="table-striped" width="100%">
             <tbody>
                 <tr><td>Speed </td><td>{this.state.uCANSensorSpeed}</td></tr>
