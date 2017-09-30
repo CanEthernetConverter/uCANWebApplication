@@ -43,7 +43,7 @@ wss.on('connection', function connection(ws) {
                 sendRawFrames = false;
                 break;
             default:// handling ucan_scan
-            require('child_process').exec('ucan_discover vcan0 1', 
+            require('child_process').exec('ucan_discover ' + config.CANDevice + ' 1', 
                 function (msg) {
                      console.log(msg) 
                 });
@@ -66,12 +66,14 @@ try {
     });
 } catch (err) { ; }
 
-var ucan_scan_network = require('child_process').execFile('ucan_scan_network', [ 
-    'vcan0', '10']); 
+
+console.log("CANDevice is " + config.CANDevice);
+var ucan_scan_network = require('child_process').spawn('ucan_scan_network', [ 
+    config.CANDevice, '10']); 
 
 ucan_scan_network.stdout.on('data', function(ucan_stdout) {
-    // console.log(ucan_stdout);
-    ucan_stdout.split("]").forEach(function(element) {
+    console.log(ucan_stdout);
+    ucan_stdout.toString().split("]").forEach(function(element) {
         if (element.length > 2)
         {
             element += "]";      
