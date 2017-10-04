@@ -6,7 +6,14 @@ var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { sys.puts(stdout) }
 exec("interceptty /dev/ttyACM0 /dev/" + config.CANPort + " -q", puts);
 exec("slcand -s" + getSLCANSpeed(config.CANSpeed) + " -o /dev/" + config.CANPort + " " + config.CANDevice, puts);
-exec("ifconfig " + config.CANDevice + " up", puts);
+// exec("ifconfig " + config.CANDevice + " up", puts);
+ifup = require('child_process').exec("ifconfig " + config.CANDevice + " up");
+ifup.stderr.on('data', (data) => {
+    setTimeout(() => {
+        console.log("can device not detected, force reboot");
+        require('child_process').exec('sudo /sbin/shutdown -r now', function (msg) { console.log(msg) });
+    },5000,'force reboot task');
+});
 //exec("cd /root/uCANWebApplication/server/logs/ && candump -l any", puts); //enable logging
 exec("socketcand -p " + config.SocketPort, puts); //enable logging
 exec("mosquitto -p " + config.MQTTPort, puts); //start mqqt borker
