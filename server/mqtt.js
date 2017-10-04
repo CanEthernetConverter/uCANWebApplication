@@ -8,11 +8,24 @@ mqtt_client.on('connect', function () {
   mqtt_client.subscribe('ucan_sender/#')
   mqtt_client.publish('uCAN', 'client connected')
 })
- 
+
+type_to_string = function(ucan_type){
+    switch (ucan_type) {
+      case 5:
+        return "Stepper";
+        break;
+      case 6: 
+        return "Line";
+      default:
+        return "Unknown";
+        break;
+    }
+}
+
 module.exports.mqtt_send_status_frame = function(frame)
 {
     var data_json = JSON.parse(frame)[0];
-    json_to_mqtt(data_json,"ucan/"+ data_json.id.device_type + "/" + data_json.id.id);
+    json_to_mqtt(data_json,"ucan/"+ type_to_string(data_json.id.device_type) + "/" + data_json.id.id);
 }
 
 json_to_mqtt = function(data_json, mqtt_topic)
