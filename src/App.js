@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './css/creative.css'
 import './css/itemframe.css'  
 import 'fixed-data-table/dist/fixed-data-table.css'
-import ItemBoard from './uCAN_Network/ItemBoard'
+// import ItemBoard from './uCAN_Network/ItemBoard'
 import Header from './Header'
 import CANApplication from './components/CAN/CANApplication'
 class App extends Component {
@@ -36,8 +36,8 @@ class App extends Component {
     {
       case  'CANApplication' : 
         return <CANApplication/>;
-      case 'uCANTools':
-        return <ItemBoard/>;
+      // case 'uCANTools':
+      //   return <ItemBoard/>;
     }
   }
   

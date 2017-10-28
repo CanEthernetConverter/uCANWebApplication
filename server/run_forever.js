@@ -21,6 +21,7 @@ exec("node-red -p " + config.NodeRedPort, puts); //start node-red borker
 
 
 
+
 function getSLCANSpeed(speedValue)
 {
   switch(speedValue) {
