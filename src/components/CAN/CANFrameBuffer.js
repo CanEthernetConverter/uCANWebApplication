@@ -1,5 +1,5 @@
 import { CANFrame } from './CANFrame';
-import UCANDevicesOnNetwork from './../../uCAN_Network/UCANDeviesOnNetwork';
+// import UCANDevicesOnNetwork from './../../uCAN_Network/UCANDeviesOnNetwork';
 
 export default class CANFrameBuffer {
   static canData = [];
@@ -10,7 +10,7 @@ export default class CANFrameBuffer {
   static DiffArrayId = 0;
   static rxCANFrameCallback = function () { };
   static connectionCallback = function () { };
-  static UCANDevicesOnNetworkCallback = function () { };
+  // static UCANDevicesOnNetworkCallback = function () { };
   static CANFrameClearCallback = function () { };
   static SetReceptionCallback = function () { }; // place it in array you lazy developer
   static SetReceptionCallback2 = function () { };
@@ -104,8 +104,8 @@ export default class CANFrameBuffer {
        
       } else {
         
-        UCANDevicesOnNetwork.UpdateData(frame.data);
-        CANFrameBuffer.UCANDevicesOnNetworkCallback();
+        // UCANDevicesOnNetwork.UpdateData(frame.data);
+        // CANFrameBuffer.UCANDevicesOnNetworkCallback();
         
       }
     };

@@ -12,7 +12,6 @@ var config = require('./../config.json');
 require('./logging.js');
 var socket_can = require('./socket_can.js');
 var mqtt_raw = require('./mqtt_raw.js'); 
-// var mqtt = require('./mqtt.js');
 
 // HTTP SERVER AND WEB SOCKETS
 var server = http.createServer(app);
@@ -38,18 +37,7 @@ wss.on('connection', function connection(ws) {
                     console.log('CANApplication request ');
                 sendRawFrames = true;
                 break;
-            // case 'uCANItemBoard':
-            //     if (sendRawFrames == true)
-            //         console.log('uCANItemBoard request ');
-            //     sendRawFrames = false;
-            //     break;
-            default:// handling ucan_scan
-            // require('child_process').exec('ucan_discover ' + config.CANDevice + ' 1', 
-            //     function (msg) {
-            //          console.log(msg) 
-            //     });
-            //     console.log('C<' + message.toString());
-            //     exec('cansend ' + config.CANDevice + ' ' + message.toString())
+            default:
                 break;
         }
     });
@@ -69,26 +57,6 @@ try {
 
 
 console.log("CANDevice is " + config.CANDevice);
-// var ucan_scan_network = require('child_process').spawn('ucan_scan_network', [ 
-//     config.CANDevice, '10']); 
-
-// ucan_scan_network.stdout.on('data', function(ucan_stdout) {
-//     console.log(ucan_stdout);
-//     ucan_stdout.toString().split("]").forEach(function(element) {
-//         if (element.length > 2)
-//         {
-//             element += "]";      
-//             // console.log("-- ucan_scan_network -- ")  
-//             // console.log(element);
-//             mqtt.mqtt_send_status_frame(element);
-//             if ((ws_connection != null) && (sendRawFrames == false)) 
-//             {                
-//                 ws_connection.send((element));
-//             }
-//         }
-//     }, this);
-// });
-
 
 // handling post request
 app.use(bodyParser.json());

@@ -1,5 +1,6 @@
 var forever = require('forever-monitor');
 var config = require('./../config.json');
+var getSLCANSpeed = require('./common_tools');
 
 var sys = require('sys')
 var exec = require('child_process').exec;
@@ -18,38 +19,6 @@ ifup.stderr.on('data', (data) => {
 exec("socketcand -p " + config.SocketPort, puts); //enable logging
 exec("mosquitto -p " + config.MQTTPort, puts); //start mqqt borker
 exec("node-red -p " + config.NodeRedPort, puts); //start node-red borker
-
-
-
-
-function getSLCANSpeed(speedValue)
-{
-  switch(speedValue) {
-    case 1000000:
-        return '8'
-        break;
-    case 800000:
-        return '7'
-        break;
-    case 500000:
-        return '6'
-        break;
-    case 250000:
-        return '5'
-        break;
-    case 125000:
-        return '4'
-        break;
-    case 100000:
-        return '3'
-        break;
-    default:
-        return '8';
-    }
-        return '8';
-}
-
-
 
 var child = new (forever.Monitor)('server.js', {
     silent: true,

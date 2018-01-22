@@ -1,38 +1,11 @@
 //VCOM SLCAN HANDLING
 var config = require('./../config.json');
+var getSLCANSpeed = require('./common_tools');
 var SerialPort = require("serialport");
 
 var sendPacketTimeout = false;
 var port = new SerialPort(config.CANPort, {baudRate: 115200});
 var dataStore = [];
-
-function getSLCANSpeed(speedValue)
-{
-  switch(speedValue) {
-    case 1000000:
-        return '8'
-        break;
-    case 800000:
-        return '7'
-        break;
-    case 500000:
-        return '6'
-        break;
-    case 250000:
-        return '5'
-        break;
-    case 125000:
-        return '4'
-        break;
-    case 100000:
-        return '3'
-        break;
-    default:
-        return '8';
-    }
-	return '8';
-}
-
 var initSpeed = false;
 
 port.on('open', function() {

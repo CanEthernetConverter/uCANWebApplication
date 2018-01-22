@@ -70,9 +70,25 @@ export class CANFrame {
   toSocketCAN() {
     let outputString = '';
 
+    // rtr type extended
+    if (this.type === 'R')
+    {
+      outputString += `${this.id.toString().pad('0', 8)}#R`;
+      outputString += this.data.charAt(0);  
+      console.log(outputString);
+      return outputString;
+    }
+    // RTR type
+    if (this.type === 'r')
+    {
+      outputString += `${this.id.toString().pad('0', 3)}#r`;
+      outputString += this.data.charAt(0);
+      console.log(outputString);
+      return outputString;  
+    }
     // id
     if ((this.type === 'E') || (parseInt(this.id, 16) > 0x7FF)) // force Extended
-      {
+    {
       outputString += `${this.id.toString().pad('0', 8)}#`;
     } else {
       outputString += `${this.id.toString().pad('0', 3)}#`;

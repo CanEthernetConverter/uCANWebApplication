@@ -11,9 +11,6 @@ mqtt_client.on('connect', function () {
 })
 
 channel.addListener("onMessage", function(msg) {
-
-    // console.log(" " + msg.ts_sec + ":" + msg.ts_usec + " " + msg.id.toString(16) + msg_type + "#" + msg.data.toString('hex'));
-    // msg = JSON.stringify(msg); 
     mqtt_client.publish(msg.id.toString(16), msg.data.toString('hex'));
 } );
 

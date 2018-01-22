@@ -35,7 +35,6 @@ json_to_mqtt = function(data_json, mqtt_topic)
             json_to_mqtt(data_json[attributename], mqtt_topic + '/' + attributename);
         } else 
         {
-            // console.log(mqtt_topic + '/' + attributename + " : " + data_json[attributename]);
             mqtt_client.publish(mqtt_topic + '/'+ attributename, data_json[attributename].toString());
         }
     }
@@ -44,15 +43,11 @@ json_to_mqtt = function(data_json, mqtt_topic)
 var exec = require('child_process').exec;
 
 mqtt_client.on('message', function (topic, message) {
-    // console.log(message.toString());
   message = message.toString().replace(/"/g,"\\\"");
   message = message.toString().replace(/ /g,"");
   message = message.toString().replace(/{/g,"\\{");
   message = message.toString().replace(/}/g,"\\}");
 
-  //vcan0 \{\"id\":22,\"device_type\":\"STEPPER_MOTOR\",\"dir\":\"CLOCKWISE\",\"step_count\":123,\"step_size\":1\}
-//   console.log(message.toString());
-//   console.log(config.CANDevice);
   exec('ucan_sender ' + config.CANDevice + ' ' + message.toString(),function (msg) {
                     if (msg != null)
                         console.log(msg) 

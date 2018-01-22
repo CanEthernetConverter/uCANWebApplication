@@ -33,10 +33,10 @@ export default class CANTransmitContents extends React.Component {
       return;
     }
     if (this.state.validInterval && this.state.validData && this.state.validID) {
-     // console.log('Transmit');
-     // console.log(`${this.state.inputID} ${this.state.inputData} ${this.state.inputInterval}`);
+      console.log('Transmit');
+      console.log(`${this.state.inputID} ${this.state.inputData} ${this.state.inputInterval}`);
       const extendId = this.state.inputID.split('E')[1];
-      const rtrData = this.state.inputData.split('R')[1];
+      let rtrData = this.state.inputData.split('R')[1];
       let id = this.state.inputID;
 
       let data = this.state.inputData;
@@ -46,9 +46,22 @@ export default class CANTransmitContents extends React.Component {
         id = extendId;
         type = 'E';
       }
-      if (rtrData !== undefined) {
+      if (rtrData !== undefined) {        
         data = rtrData;
+        type = "R";
+      } else
+      {
+        rtrData = this.state.inputData.split('r')[1];
+        if (rtrData !== undefined)
+        {
+          type = "r";
+          data = rtrData;
+        }
       }
+
+      if (data.length == 0)
+        data = "0";
+
       const tmpCanFrame = new CANFrame(new Date().getTime(), 0, id, type, data, Math.ceil(data.length / 2));
             // tmpCanFrame.toSLCANString();
       CANFrameBuffer.SendFrame(tmpCanFrame);
@@ -92,7 +105,7 @@ export default class CANTransmitContents extends React.Component {
             className="form-control"
             placeholder="Data in HEX, 'R' for Retransmition"
             onChange={(value) => {
-              this.setState({ validData: /^(?:R)?([0-9a-fA-F]){0,16}$/.test(value.target.value) });
+              this.setState({ validData: /^(?:R|r)?([0-9a-fA-F]){0,16}$/.test(value.target.value) });
               this.setState({ inputData: value.target.value });
             }}
           />
