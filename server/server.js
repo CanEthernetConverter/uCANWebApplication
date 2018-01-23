@@ -36,8 +36,10 @@ wss.on('connection', function connection(ws) {
                 if (sendRawFrames == false)
                     console.log('CANApplication request ');
                 sendRawFrames = true;
-                break;
-            default:
+		break;
+	   default:
+		console.log('C<' + message.toString());
+		exec('cansend ' + config.CANDevice + ' ' + message.toString());
                 break;
         }
     });

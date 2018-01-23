@@ -1,6 +1,6 @@
 //VCOM SLCAN HANDLING
 var config = require('./../config.json');
-var getSLCANSpeed = require('./common_tools');
+var common_tools = require('./common_tools');
 var SerialPort = require("serialport");
 
 var sendPacketTimeout = false;
@@ -9,8 +9,8 @@ var dataStore = [];
 var initSpeed = false;
 
 port.on('open', function() {
-    console.log('C<S'+getSLCANSpeed(config.CANSpeed));
-    port.write('S' + getSLCANSpeed(config.CANSpeed) + '\r');
+    console.log('C<S'+common_tools.getSLCANSpeed(config.CANSpeed));
+    port.write('S' + common_tools.getSLCANSpeed(config.CANSpeed) + '\r');
 });
 
 port.on('error', function(err) {

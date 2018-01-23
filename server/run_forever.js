@@ -1,12 +1,12 @@
 var forever = require('forever-monitor');
 var config = require('./../config.json');
-var getSLCANSpeed = require('./common_tools');
+var common_tools = require('./common_tools');
 
 var sys = require('sys')
 var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { sys.puts(stdout) }
 exec("interceptty /dev/ttyACM0 /dev/" + config.CANPort + " -q", puts);
-exec("slcand -s" + getSLCANSpeed(config.CANSpeed) + " -o /dev/" + config.CANPort + " " + config.CANDevice, puts);
+exec("slcand -s" + common_tools.getSLCANSpeed(config.CANSpeed) + " -o /dev/" + config.CANPort + " " + config.CANDevice, puts);
 // exec("ifconfig " + config.CANDevice + " up", puts);
 ifup = require('child_process').exec("ifconfig " + config.CANDevice + " up");
 ifup.stderr.on('data', (data) => {
