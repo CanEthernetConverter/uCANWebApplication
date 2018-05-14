@@ -9,7 +9,7 @@ console.log = function(data)
 {
 //      var currentDate = moment().format("hh:mm:ss.SSS");	
 	var currentDate = '';
-      fs.appendFileSync(config.CANLogDir +  config.CANLogPath, currentDate + data + os.EOL);
+      //fs.appendFileSync(config.CANLogDir +  config.CANLogPath, currentDate + data + os.EOL);
       console.logCopy(currentDate +  data);
 };
 

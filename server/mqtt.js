@@ -4,6 +4,33 @@ var mqtt_client  = mqtt.connect('mqtt://localhost:' + config.MQTTPort)
 var config = require('./../config.json');
 
 
+
+let frames_table = [];
+module.exports.filter_unique = function(slcanframe)
+{
+    let return_frame = false;
+    let i = frames_table[slcanframe.id];
+    if (typeof(i) !== 'undefined')
+    {
+        if (i.length==slcanframe.data.length && 
+            i.every(function(v,i) { return v === slcanframe.data[i]}))
+        {
+            /* do nothing same frame as before */
+        } else 
+        {
+            frames_table[slcanframe.id] = slcanframe.data;
+            return_frame = slcanframe;
+        }
+    } else 
+    {
+        frames_table[slcanframe.id] = slcanframe.data;
+        return_frame = slcanframe;        
+    }
+
+    return return_frame;
+}
+
+
 mqtt_client.on('connect', function () {
   mqtt_client.subscribe('ucan_sender/#')
   mqtt_client.publish('uCAN', 'client connected')
@@ -56,3 +83,4 @@ mqtt_client.on('message', function (topic, message) {
                 });
 //   client.end()
 });
+

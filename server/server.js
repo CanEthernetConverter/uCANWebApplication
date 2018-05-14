@@ -12,6 +12,9 @@ var config = require('./../config.json');
 require('./logging.js');
 var socket_can = require('./socket_can.js');
 var mqtt_raw = require('./mqtt_raw.js'); 
+var mqtt = require('./mqtt.js'); 
+
+
 
 // HTTP SERVER AND WEB SOCKETS
 var server = http.createServer(app);
@@ -53,9 +56,14 @@ try {
     socket_can.onPacketRx((endpoint, data) => {
         if ((ws_connection != null) && (sendRawFrames == true)) {
             ws_connection.send(JSON.stringify(data));
-        }
+        }        
     });
 } catch (err) { ; }
+
+    socket_can.onPacketRxRaw((endpoint, data) => {
+        let data_filterd = mqtt.filter_unique(data);
+        console.log(JSON.stringify(data_filterd));
+    });
 
 
 console.log("CANDevice is " + config.CANDevice);

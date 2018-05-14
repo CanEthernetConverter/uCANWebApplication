@@ -19,6 +19,7 @@ channel.addListener("onMessage", function(msg) {
     {
     //   console.log(" " + msg.ts_sec + ":" + msg.ts_usec + " " + msg.id.toString(16));
     }
+    emitDataRaw("CANrx_socketCAN",msg);
     dataStore.push(JSON.stringify(msg));
     if (sendPacketTimeout == false){
 	sendPacketTimeout = true;
@@ -37,6 +38,12 @@ channel.addListener("onMessage", function(msg) {
 //channel.addListener("onMessage", channel.send, channel);
 
 channel.start();
+
+module.exports.onPacketRxRaw = function(handler)
+{
+  emitDataRaw =  handler;
+};
+
 
 module.exports.onPacketRx = function(handler)
 {
