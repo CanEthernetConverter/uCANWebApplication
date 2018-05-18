@@ -1,0 +1,45 @@
+[
+    {
+        "type": "relay",        
+        "id": 1,
+        "frame_len": 1,
+        "signals":
+        {
+            "relay_open" : {
+                "byte": 0,
+                "bit": 0,
+                "size":1
+            }
+        }        
+    },
+    {
+        "type": "line_motor",        
+        "id": 2,
+        "frame_len": 4,
+        "signals":
+        {
+            "control_type" : {
+                "byte": 0,
+                "bit": 0,
+                "size":1,
+                "description": "What is controll mode for motor. 0 - Speed, 1 - Position"
+            },
+            "direction" : {
+                "byte": 0,
+                "bit": 4,
+                "size":1
+            },
+            "speed" : {
+                "byte": 1,
+                "bit": 0,
+                "size":8
+            },
+            "position" : {
+                "byte": 2,
+                "bit": 0,
+                "size":8
+            }
+
+        }        
+    }
+]

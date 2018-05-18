@@ -1,9 +1,7 @@
-var mqtt = require('mqtt')
+var mqtt = require('mqtt');
 var config = require('./../config.json');
 var mqtt_client  = mqtt.connect('mqtt://localhost:' + config.MQTTPort)
-var config = require('./../config.json');
-
-
+var socket_can = require('./socket_can.js');
 
 let frames_table = [];
 module.exports.filter_unique = function(slcanframe)
@@ -70,17 +68,56 @@ json_to_mqtt = function(data_json, mqtt_topic)
 var exec = require('child_process').exec;
 
 mqtt_client.on('message', function (topic, message) {
-  message = message.toString().replace(/"/g,"\\\"");
-  message = message.toString().replace(/ /g,"");
-  message = message.toString().replace(/{/g,"\\{");
-  message = message.toString().replace(/}/g,"\\}");
+    console.log("MQTT>");
 
-  exec('ucan_sender ' + config.CANDevice + ' ' + message.toString(),function (msg) {
-                    if (msg != null)
-                        console.log(msg) 
-                    else 
-                        console.log("send OK") 
-                });
-//   client.end()
+    let rx_json = JSON.parse(message);
+
+    console.log(JSON.stringify(rx_json));
+
+    let ucan_device_types_array = require('./ucan_device_types.json');
+    
+    let ucan_device_type = ucan_device_types_array.filter((x)=>{
+        return x.type == rx_json.type;
+    });
+
+    if (ucan_device_type.length > 0)
+    {
+        let dd = ucan_device_type[0];
+        // copose frame header part
+        let frame_id = dd.id;        
+        let buffer = Buffer.alloc(dd.frame_len + 1,0);
+        buffer[0] = rx_json.id;
+        // copose frame data part
+        // 1. find param in device_definition
+        let cmd_data = Object.keys(rx_json.signals).map((j) => {
+            let mx = dd.signals[j]            
+            return {"value":rx_json.signals[j],"sd":mx};
+        });
+        // 2. cast values to bytes
+        cmd_data = cmd_data.map(x => {
+            e = x.value;
+            switch (typeof(e))
+            {
+                case 'boolean':
+                    e  == true ? e = 1 : e = 0;
+                    break;
+                case 'number':
+                    e = e;
+                    break;
+                default:
+                    e = 0; 
+            }
+            x.value = e;
+            return x;    
+        });
+        // 3. copose data part of the frame                
+        cmd_data.forEach(e => {
+            buffer[(e.sd.byte+1)] |= (e.value << e.sd.bit)
+        })
+        // 4. send frame        
+        let canmsg = { id: frame_id, data: buffer };
+        socket_can.sendCANPacket(canmsg);            
+    }
+
 });
 

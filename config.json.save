@@ -1,0 +1,1 @@
+q{"CANPort":"ttyACM1","CANDevice":"vcan0","CANSpeed":1000000,"HTTPPort":8070,"SocketPort":8030,"CANLogDir":"./logs/","MQTTPort":1884,"NodeRedPort":1882,"CANLogPath":"log.log"}

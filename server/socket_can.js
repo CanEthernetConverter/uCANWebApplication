@@ -55,3 +55,10 @@ catch (err)
 {
 	console.log("Error in creating socket CAN, probably no SocketCAN device: " + err);
 }
+
+
+module.exports.sendCANPacket = function(canMessage)
+{
+    console.log("LIN< " + canMessage.id + "#" + canMessage.data.toString('hex') );
+    channel.send(canMessage);
+};
