@@ -30,3 +30,18 @@ mqtt_client.on('message', function (topic, message) {
 });
 
 channel.start();
+
+var socket_can = require('./socket_can.js');
+var ucan_json_parser = require('ucan_json_parser');
+
+mqtt_client.on('connect', function () {
+  mqtt_client.subscribe('ucan_sender/#')
+  mqtt_client.publish('uCAN', 'client connected')
+})
+
+mqtt_client.on('message', function (topic, message) {
+    console.log("MQTT>");
+    let canmsg = ucan_json_parser.JSONCommandToByteStream(message);
+    socket_can.sendCANPacket(canmsg);            
+});
+

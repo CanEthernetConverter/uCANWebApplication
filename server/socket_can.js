@@ -4,6 +4,32 @@ var config = require('./../config.json');
 var dataStore = [];
 var sendPacketTimeout = false;
 
+
+let frames_table = [];
+filter_unique = function(slcanframe)
+{
+    let return_frame = false;
+    let i = frames_table[slcanframe.id];
+    if (typeof(i) !== 'undefined')
+    {
+        if (i.length==slcanframe.data.length && 
+            i.every(function(v,i) { return v === slcanframe.data[i]}))
+        {
+            /* do nothing same frame as before */
+        } else 
+        {
+            frames_table[slcanframe.id] = slcanframe.data;
+            return_frame = slcanframe;
+        }
+    } else 
+    {
+        frames_table[slcanframe.id] = slcanframe.data;
+        return_frame = slcanframe;        
+    }
+
+    return return_frame;
+}
+
 try {
 
 var channel = can.createRawChannel(config.CANDevice, true);
@@ -19,7 +45,7 @@ channel.addListener("onMessage", function(msg) {
     {
     //   console.log(" " + msg.ts_sec + ":" + msg.ts_usec + " " + msg.id.toString(16));
     }
-    emitDataRaw("CANrx_socketCAN",msg);
+    emitDataRaw("CANrx_socketCAN", filter_unique(msg));
     dataStore.push(JSON.stringify(msg));
     if (sendPacketTimeout == false){
 	sendPacketTimeout = true;
@@ -30,8 +56,6 @@ channel.addListener("onMessage", function(msg) {
 	},300);
     }
 //    emitData('CANrx_socketCAN',JSON.stringify(msg));
-    
-    
 } );
 
 // Reply any message

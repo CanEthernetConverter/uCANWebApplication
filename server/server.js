@@ -12,8 +12,7 @@ var config = require('./../config.json');
 require('./logging.js');
 var socket_can = require('./socket_can.js');
 var mqtt_raw = require('./mqtt_raw.js'); 
-var mqtt = require('./mqtt.js'); 
-
+var ucan_json_parser = require('ucan_json_parser');
 
 
 // HTTP SERVER AND WEB SOCKETS
@@ -61,8 +60,8 @@ try {
 } catch (err) { ; }
 
     socket_can.onPacketRxRaw((endpoint, data) => {
-        let data_filterd = mqtt.filter_unique(data);
-        console.log(JSON.stringify(data_filterd));
+        let ucan_data = ucan_json_parser.ByteStreamToJSONData(data);        
+        console.log(JSON.stringify(ucan_data));
     });
 
 
