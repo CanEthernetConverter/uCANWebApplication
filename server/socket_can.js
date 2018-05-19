@@ -45,7 +45,9 @@ channel.addListener("onMessage", function(msg) {
     {
     //   console.log(" " + msg.ts_sec + ":" + msg.ts_usec + " " + msg.id.toString(16));
     }
-    emitDataRaw("CANrx_socketCAN", filter_unique(msg));
+    let unique_data = filter_unique(msg);
+    if (unique_data != false)
+        emitDataRaw("CANrx_socketCAN", unique_data);
     dataStore.push(JSON.stringify(msg));
     if (sendPacketTimeout == false){
 	sendPacketTimeout = true;
