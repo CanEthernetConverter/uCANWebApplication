@@ -61,7 +61,7 @@ try {
 
     socket_can.onPacketRxRaw((endpoint, data) => {
         let ucan_data = ucan_json_parser.ByteStreamToJSONData(data);        
-        console.log(JSON.stringify(ucan_data));
+        mqtt_raw.sendMqttPacket(JSON.stringify(ucan_data));
     });
 
 
@@ -91,7 +91,6 @@ app.put("/CAN/config.json", function (req, res) {
     console.log(req.body);
     res.send(JSON.stringify("OK"));
     setTimeout(resetDevice, 3000);
-
 });
 
 app.get("/CAN/config.json", function (req, res) {
