@@ -52,7 +52,7 @@ channel.addListener("onMessage", function(msg) {
     if (sendPacketTimeout == false){
 	sendPacketTimeout = true;
 	setTimeout(() => {
-            emitData('CANrx_socketCAN',dataStore);
+            // emitData('CANrx_socketCAN',dataStore); //ll //@ToDo przywróc to
 	    sendPacketTimeout = false;
 	    dataStore = [];
 	},300);
@@ -81,7 +81,6 @@ catch (err)
 {
 	console.log("Error in creating socket CAN, probably no SocketCAN device: " + err);
 }
-
 
 module.exports.sendCANPacket = function(canMessage)
 {

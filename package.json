@@ -12,7 +12,7 @@
     "react-masonry-component": "^5.0.7",
     "react-router-bootstrap": "^0.24.4",
     "react-virtualized": "^9.19.0",
-    "ucan_json_parser": "^1.1.0"
+    "ucan_json_parser": "^1.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

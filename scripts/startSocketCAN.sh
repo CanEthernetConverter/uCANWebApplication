@@ -1,5 +1,5 @@
 #!/bin/bash
-slcand -s3 -o /dev/ttyACM1 slcan0
+slcand -s8 -o /dev/"$1" slcan0
 
 ifconfig slcan0 up
 

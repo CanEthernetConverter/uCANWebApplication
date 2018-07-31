@@ -24,4 +24,16 @@ let cmd_2 =
     }    
 }
 
-mqtt_client.publish('ucan_sender', JSON.stringify(cmd_2))
+let cmd_3 = 
+{
+    "type": "stepper_motor",
+    "id": 15,
+    "signals":
+    {
+        "direction": 1,
+        "step_size": 2,
+        "steps_number": 12,
+    }    
+}
+
+mqtt_client.publish('ucan_sender', JSON.stringify(cmd_3))
