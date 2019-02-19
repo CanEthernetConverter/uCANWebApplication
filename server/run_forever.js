@@ -10,7 +10,7 @@ exec("ip link set " + config.CANDevice + " type can bitrate " + config.CANSpeed 
 ifup = require('child_process').exec("ifconfig " + config.CANDevice + " up");
 ifup.stderr.on('data', (data) => {
     setTimeout(() => {
-        console.log("can device not detected, force reboot");
+        console.log("can device not detected");
        // require('child_process').exec('sudo /sbin/shutdown -r now', function (msg) { console.log(msg) });
     },15000,'force reboot task');
 });
