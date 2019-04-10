@@ -1,0 +1,34 @@
+VERSION "created by canmatrix"
+
+
+NS_ :
+
+BS_:
+
+BU_: 
+
+
+BO_ 5 DCStatusFrame: 8 Vector__XXX
+ SG_ PWM : 0|16@1+ (1.000000,0.000000) [0.000000|65535.000000] "" Vector__XXX
+ SG_ breakingOn : 16|1@1- (1.000000,0.000000) [0.000000|1.000000] "" Vector__XXX
+ SG_ dir : 17|1@1- (1.000000,0.000000) [0.000000|1.000000] "" Vector__XXX
+ SG_ speedControl : 18|1@1- (1.000000,0.000000) [0.000000|1.000000] "" Vector__XXX
+ SG_ positionControl : 19|1@1- (1.000000,0.000000) [0.000000|1.000000] "" Vector__XXX
+ SG_ RegulatorPosition : 24|16@1+ (1.000000,0.000000) [0.000000|65535.000000] "" Vector__XXX
+ SG_ RegulatorSpeed : 40|16@1+ (1.000000,0.000000) [0.000000|65535.000000] "" Vector__XXX
+
+BO_ 6 DCControlFrame: 8 Vector__XXX
+ SG_ SensorSpeed : 0|16@1+ (1.000000,0.000000) [0.000000|65535.000000] "" Vector__XXX
+ SG_ SensorPosition : 16|16@1+ (1.000000,0.000000) [0.000000|65535.000000] "" Vector__XXX
+ SG_ BrushState : 49|3@1+ (1.000000,0.000000) [0.000000|7.000000] "" Vector__XXX
+ SG_ BrushDir : 48|1@1- (1.000000,0.000000) [0.000000|1.000000] "" Vector__XXX
+ SG_ BrushPWM : 32|16@1+ (1.000000,0.000000) [0.000000|65535.000000] "" Vector__XXX
+
+
+
+
+
+
+
+
+
