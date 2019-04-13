@@ -4,7 +4,7 @@ import sys
 
 
 # can_bus = can.interface.Bus('COM7@115200', bustype='slcan')
-can_bus = can.interface.Bus('vcan0', bustype='socketcan')
+can_bus = can.interface.Bus('can0', bustype='socketcan')
 db = cantools.database.load_file('motor/ucan.dbc')
 status_msg = db.get_message_by_name('DCControlFrame')
 command_msg = db.get_message_by_name('DCStatusFrame')
