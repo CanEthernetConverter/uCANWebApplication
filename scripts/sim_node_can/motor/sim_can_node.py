@@ -3,11 +3,12 @@ import can
 import motor_sim
 import threading, time, sys, os
 
-can_bus = can.interface.Bus('vcan0', bustype='socketcan')
+# can_bus = can.interface.Bus('COM7@115200', bustype='slcan')
+can_bus = can.interface.Bus('/dev/ttyS7@115200', bustype='slcan')
+# can_bus = can.interface.Bus('vcan0', bustype='socketcan')
 db = cantools.database.load_file('ucan.dbc')
 status_msg = db.get_message_by_name('DCControlFrame')
 command_msg = db.get_message_by_name('DCStatusFrame')
-# can_bus = can.interface.Bus('COM7@115200', bustype='slcan')
 # print(status_msg.signals)
         
 sim_len = 100
